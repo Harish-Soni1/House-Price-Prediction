@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>House Price Prediction</title>
+    </head>
+    <body>
+        <div class="split left">
+            <img src={{ name }} class="centered">
+        </div>
+        <div>
+                <form action="{{ url_for('predict')}}" method="post">
+                    <table align="right">
+                        <tr>
+                            <th colspan="2"><h2>Predictive Analysis</h2></th>
+                        </tr>
+                        <tr>
+                            <th><h3>Is the building Under Construction?</h3></th>
+                            <td><input id="Under_Con" name="Under_Con" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>Is RERA?</h3></th>
+                            <td><input id="rera" name="RERA" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>How much BHK?</h3></th>
+                            <td><input id="bhk" name="BHK" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>How much Square_Ft?</h3></th>
+                            <td><input id="sq_ft" name="Square_Ft" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>Is Ready to Move?</h3></th>
+                            <td><input id="rtm" name="Ready_TO_Move" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>Is this Resale?</h3></th>
+                            <td><input id="resale" name="Resale" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>What is the Longitude?</h3></th>
+                            <td><input id="lgt" name="Longitude" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>What is the Latitude?</h3></th>
+                            <td><input id="ltd" name="Latitude" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th><h3>Posted By</h3></th>
+                            <td><select name="Posted_By" id="post" required="required">
+                                    <option value="Owner">Owner</option>
+                                    <option value="Dealer">Dealer</option>
+                                    <option value="Builder">Builder</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h3>Is BHK or RK</h3></th>
+                            <td><select name="bhk_or_rk" id="BHK_OR_RK" required="required">
+                                    <option value="BHK">BHK</option>
+                                    <option value="RK">RK</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2"><button id="sub" type="submit ">Calculate Target</button></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2"><h3>{{ prediction_text }}</h3></th>
+                        </tr>
+                    </table>
+                </form>
+        </div>
+
+        <style>
+            body {
+                background-color: lightslategray;
+                text-align: center;
+                padding: 0px;
+            }
+            
+            #box {
+                border-radius: 60px;
+                border-color: 45px;
+                border-style: solid;
+                font-family: cursive;
+                text-align: center;
+                background-color: rgb(168, 131, 61);
+                font-size: medium;
+                position: absolute;
+                width: 700px;
+                bottom: 9%;
+                height: 850px;
+                right: 30%;
+                padding: 0px;
+                margin: 0px;
+                font-size: 14px;
+            }
+
+            .split {
+                height: 100%;
+                width: 50%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                overflow: hidden;
+                padding: 20pox;
+            }
+            
+            .left {
+                left: 0;
+                align-content: center;
+            }
+
+            .right {
+                right: 0;
+            }
+
+            .centered {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 400px;
+            }
+
+            #post {
+                width: 83px;
+                height: 43px;
+                text-align: center;
+                border-radius: 14px;
+                font-size: 20px;
+            }
+            
+            #post:hover {
+                background-color: coral;
+            }
+            
+            #BHK_OR_RK {
+                width: 99px;
+                height: 43px;
+                text-align: center;
+                border-radius: 14px;
+                font-size: 18px;
+            }
+            
+            #BHK_OR_RK:hover {
+                background-color: coral;
+            }
+            
+            #sub {
+                width: 120px;
+                height: 43px;
+                text-align: center;
+                border-radius: 14px;
+                font-size: 18px;
+            }
+            
+            #sub:hover {
+                background-color: darkcyan;
+            }
+            
+            #Under_Con {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+            
+            #rera {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            #bhk {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            } 
+
+            #sq_ft {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            #rtm {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            #resale {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            #lgt {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            #ltd {
+                border-radius: 14px;
+                height: 25px;
+                font-size: 20px;
+                text-align: center;
+            }   
+        </style>
+    </body>
+</html>
